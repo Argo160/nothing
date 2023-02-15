@@ -1,5 +1,5 @@
 ```shell
-git clone https://github.com/Argo160/nothing.git
+wget --no-check-certificate --content-disposition https://raw.githubusercontent.com/Argo160/nothing/main/block_iran_ips.sh
 ```
 
 ```shell
