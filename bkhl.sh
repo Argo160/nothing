@@ -135,7 +135,6 @@ TUNNEL(){
             fi
 
             read -p "Enter Token : " token
-            read -p "Do you want nodelay (true/false)? " nodelay
 
 			read -p "How many port mappings do you want to add?" port_count
 
@@ -148,7 +147,7 @@ cat <<EOL > config.toml
 bind_addr = "0.0.0.0:3080"
 transport = "${protocol}"
 token = "${token}"
-nodelay = ${nodelay}
+nodelay = true
 keepalive_period = 20
 channel_size = 2048
 connection_pool = 16
@@ -176,7 +175,6 @@ EOL
             fi
 
             read -p "Enter Token : " token
-            read -p "Do you want nodelay (true/false) ? " nodelay
 			read -p "Please enter Remote IP : " remote_ip
 
 cat <<EOL > config.toml
@@ -184,11 +182,15 @@ cat <<EOL > config.toml
 remote_addr = "${remote_ip}:3080"
 transport = "${protocol}"
 token = "${token}"
-nodelay = ${nodelay}
-keepalive_period = 20
-retry_interval = 1
+connection_pool = 8
+keepalive_period = 75
+dial_timeout = 10
+nodelay = true
+retry_interval = 3
+sniffer = false
+web_port = 2060 
+sniffer_log = "/root/backhaul.json"
 log_level = "info"
-mux_session = 1
 EOL
 
         # backhaul -c config.toml
